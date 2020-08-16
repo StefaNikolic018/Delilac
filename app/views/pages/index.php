@@ -1,0 +1,1 @@
+<?php echo (!empty($_SESSION['user_name'])) ? 'Welcome '.$_SESSION['user_name'] : $data['title']; ?>
