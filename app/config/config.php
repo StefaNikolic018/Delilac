@@ -13,7 +13,7 @@
     define('APP_ROOT',dirname(dirname(__FILE__)));
 
     //Logo locaation
-    define('LOGO_SRC', '../../public/img/logo.png');
+    define('LOGO_SRC', './public/img/logo.png');
 
     //Url Root -> Second parameter is your Url
     define('URL_ROOT','http://localhost/PHP_OOP_MVC/delilac/');

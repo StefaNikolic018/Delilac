@@ -40,7 +40,7 @@ class User {
 
     //Find user by username
     public function findUserByUsername($username){
-        $this->db->query('SELECT * FROM users WHERE username=:username');
+        $this->db->query('SELECT * FROM users WHERE name=:username');
         $this->db->bind(':username',$username);
 
         return $this->db->single();

@@ -50,7 +50,7 @@ class Posts extends Controller {
              $_POST= filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
              $data= [
-                 'view'=>'posts/addpost',
+                 'view'=>'posts/index',
                  'title'=>'Add post',
                  'post_body'=>isset($_POST['body1']) ? trim($_POST['body1']) : '',
                  'post_user_id'=>$_SESSION['user_id'],
@@ -75,46 +75,46 @@ class Posts extends Controller {
                 $extensions= array("jpeg","jpg","png");
 
                 if(in_array($file_ext,$extensions) === false){
-                   $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+                    $data['error']['img_err']="extension not allowed, please choose a JPEG or PNG file.";
                 }
 
                 if($file_size > 2097152){
-                   $errors[]='File size must be exactely 2 MB';
+                   $data['error']['img_err']='File size must be exactly 2 MB';
                 }
 
-                if(empty($errors)==true){
-                   move_uploaded_file($file_tmp,"./img/".$file_name);
-                   $data['img']=$file_name;
-                }else{
-                    //If file is empty
-                   $data['error']['img_err']='Please upload an image';
-                }
-            }
-
-
-            //Validate title
-            if(empty($data['post_title'])){
-                $data['error']['title_err']='Please fill the title';
             } else {
-                if(strlen($data['post_title'])<3){
-                    $data['error']['title_err']='Title must be greater than 3 characters';
-                }
+                $data['error']['img_err']='Please upload an image';
             }
+
+
+            // //Validate title
+            // if(empty($data['post_title'])){
+            //     $data['error']['title_err']='Please fill the title';
+            // } else {
+            //     if(strlen($data['post_title'])<3){
+            //         $data['error']['title_err']='Title must be greater than 3 characters';
+            //     }
+            // }
 
             //Validating body input
             if(empty($data['post_body'])){
                 $data['error']['body_err']='Please fill the body';
             } else {
-                if(strlen($data['post_body'])<10){
-                    $data['error']['body_err']='Body text must be greater than 10 characters';
+                if(strlen($data['post_body'])<5){
+                    $data['error']['body_err']='Body text must be greater than 5 characters';
                 }
             }
 
             //Make shure no errors
-            if(empty($data['error']['title_err']) && empty($data['error']['body_err']) && empty($data['error']['img_err'])){
+            if(empty($data['error']['body_err']) && empty($data['error']['img_err'])){
+                move_uploaded_file($file_tmp,"./img/".$file_name);
+                $data['img']=$file_name;
+
                 if($this->postModel->store($data)){
+                    
                     flash('post_success','Post added');
                     redirect('posts');
+
                 } else {
                     DIE('something went wrong');
                 }
@@ -129,20 +129,21 @@ class Posts extends Controller {
 
 
         } else {
-            
-            $data= [
-                'view'=>'posts/addpost',
-                'title'=>'Add post',
-                'post_body'=>'',
-                'img'=>'',
-                'post_user_id'=>$_SESSION['user_id'],
-                'error'=>[
-                    'title_err'=>'',
-                    'body_err'=>''
-                ]
-            ];
+            redirect('posts');
 
-            $this->view('posts/layout',$data);
+            // $data= [
+            //     'view'=>'posts/index',
+            //     'title'=>'Add post',
+            //     'post_body'=>'',
+            //     'img'=>'',
+            //     'post_user_id'=>$_SESSION['user_id'],
+            //     'error'=>[
+            //         'title_err'=>'',
+            //         'body_err'=>''
+            //     ]
+            // ];
+
+            // $this->view('posts/layout',$data);
             
         }
 

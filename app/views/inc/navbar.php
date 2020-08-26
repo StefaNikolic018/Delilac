@@ -2,9 +2,9 @@
   <div class="container">
     <!-- IF LOGGED IN, CLICK ON LOGO IS LEADING TO POSTS PAGE-->
     <?php if(!isset($_SESSION['user_id'])): ?>
-    <a class="navbar-brand" href="<?php echo URL_ROOT;?>"><img src="<?php echo LOGO_SRC; ?>" class="img img-fluid" alt="logo" width="150px"></a>
+    <a class="navbar-brand" href="<?php echo URL_ROOT;?>"><img src="<?php echo LOGO_SRC; ?>" class="img img-responsive" alt="logo" style="max-height:100px; max-width:100px;"></a>
     <?php else: ?>
-    <a class="navbar-brand" href="<?php echo URL_ROOT;?>posts/"><img src="<?php echo LOGO_SRC; ?>" class="img img-fluid" alt="logo" width="150px"></a>
+    <a class="navbar-brand" href="<?php echo URL_ROOT;?>posts"><img src="<?php echo LOGO_SRC; ?>" class="img img-fluid" alt="logo" width="150px"></a>
     <?php endif; ?>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,7 @@
           <!-- IF LOGGED IN -->
           <?php if(isset($_SESSION['user_id'])): ?>
             <li class="nav-item ">
-                <a href="<?php echo URL_ROOT; ?>users/profile" class="nav-link"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-badge" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <a href="<?php echo URL_ROOT; ?>pages/profile/<?php echo $_SESSION['user_name'];?>" class="nav-link"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-badge" fill="white" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v11.755S4 12 8 12s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
   <path fill-rule="evenodd" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z"/>
 </svg></a>

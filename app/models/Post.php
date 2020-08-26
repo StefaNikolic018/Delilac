@@ -24,6 +24,24 @@ class Post {
         return $results;
     }
 
+    public function getUserPosts($username){
+        $this->db->query('SELECT *,
+                          posts.id as postId,
+                          users.id as userId,
+                          posts.created_at as created
+                          FROM posts
+                          INNER JOIN users
+                          ON posts.user_id=users.id
+                          WHERE users.name = :username1 
+                          ORDER BY posts.created_at DESC');
+
+        $this->db->bind(':username1',$username);
+        
+        $results = $this->db->single();
+
+        return $results;
+    }
+
     public function singlePost($user_id1){
         $this->db->query('SELECT *,
                           posts.id as postId,
@@ -59,16 +77,14 @@ class Post {
     public function editPost($data){
         $this->db->query('UPDATE posts 
                           SET
-                              title = :title1,
                               body = :body1,
                               img = :img1 
                           WHERE id=:id1;');
         
         //Bind values
-        $this->db->bind(':title1',$data['post_title']);
         $this->db->bind(':body1',$data['post_body']);
-        $this->db->bind(':id1',$data['post_id']);
         $this->db->bind(':img1',$data['img']);
+        $this->db->bind(':id1',$data['post_id']);
 
        return $this->db->execute() ? true : false;
         

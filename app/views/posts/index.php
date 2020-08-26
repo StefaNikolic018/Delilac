@@ -84,7 +84,9 @@
   </ul>
 </div>
   </div>
-  <img src="./public/img/<?php echo $post->img;?>" class="card-img-top" alt="img">
+  <div class="text-center">
+    <img src="./public/img/<?php echo $post->img;?>" class="card-img-top img-fluid" alt="img" style="max-width:400px; max-height:400px;">
+  </div>
   <div class="card-body">
     <p class="mb-0 mt-0">
       <!-- LIKE -->

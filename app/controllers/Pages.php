@@ -5,6 +5,8 @@ class Pages extends Controller {
     //Constructor
     public function __construct(){
         //Instance of models here
+        $this->userModel=$this->model('User');
+        $this->postModel=$this->model('Post');
     }
 
     //Index method
@@ -39,6 +41,34 @@ class Pages extends Controller {
         ];
         //Returning view
         $this->view('pages/layout',$data);
+    }
+
+    public function profile($username){
+        
+
+        //Showing profile
+        if($_SERVER['REQUEST_METHOD']=='GET'){
+
+            $user=$this->userModel->findUserByUsername($username);
+            $posts=$this->postModel->getUserPosts($username);
+
+            $posts_num=count($posts->id);
+
+            $data = [
+                'view'=>'pages/profile',
+                'title'=>'Profile',
+                'username'=>$user->name,
+                'bio'=>'',
+                'img'=>'',
+                'posts'=>$posts,
+                'posts_num'=>$posts_num
+            ];
+
+            $this->view('pages/layout',$data);
+
+        } else {
+
+        }
     }
 
 
